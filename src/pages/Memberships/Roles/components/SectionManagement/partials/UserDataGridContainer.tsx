@@ -1,36 +1,24 @@
 import {Edit, Trash2} from "lucide-react";
 import {Button} from "../../../../../../components/ui/Button";
-import {DataGrid, TColumn} from "../../../../../../components/ui/DataGrid";
+import {DataGrid} from "../../../../../../components/ui/DataGrid";
 import {PaginationButtons} from "../../../../../../components/ui/PaginationButtons";
 import {TUserDto} from "../../../../../../models/memberships/user";
-import {TSortField, TSortOrder} from "../../../../../../types/sortDataGrid";
+import {useUserManagementContext} from "../contexts/UserManagementContext";
 import {UserDataGridMobile} from "./UserDataGridMobile";
 
-type TUserDataGridContainerProps = {
-	columns: TColumn<TUserDto>[];
-	totalPages: number;
-	currentUsers: TUserDto[];
-	handleSort: (field: TSortField) => void;
-	currentPage: number;
-	goToPage: (page: number) => void;
-	handleDeleteConfirmation: (id: string) => void;
-	handleEdit: (data: TUserDto) => void;
-	sortField: TSortField;
-	sortOrder: TSortOrder;
-};
-
-export const UserDataGridContainer = ({
-	columns,
-	totalPages,
-	currentUsers,
-	handleSort,
-	currentPage,
-	goToPage,
-	handleDeleteConfirmation,
-	handleEdit,
-	sortField,
-	sortOrder,
-}: TUserDataGridContainerProps) => {
+export const UserDataGridContainer = () => {
+	const {
+		columns,
+		totalPages,
+		currentUsers,
+		handleSort,
+		currentPage,
+		goToPage,
+		handleDeleteConfirmation,
+		handleEdit,
+		sortField,
+		sortOrder,
+	} = useUserManagementContext();
 	const renderActions = (data: TUserDto) => (
 		<>
 			<Button
@@ -64,7 +52,7 @@ export const UserDataGridContainer = ({
 					actions={renderActions}
 				/>
 			</div>
-			<UserDataGridMobile users={currentUsers} renderActions={renderActions} />
+			<UserDataGridMobile renderActions={renderActions} />
 			<PaginationButtons
 				currentPage={currentPage}
 				goToPage={goToPage}

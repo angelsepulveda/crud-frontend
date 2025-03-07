@@ -1,12 +1,9 @@
 import {AlertTriangle, RefreshCw} from "lucide-react";
 import {Button} from "../../../../../../components/ui/Button";
+import {useUserManagementContext} from "../contexts/UserManagementContext";
 
-type TUserRetryProps = {
-	isRetrying: boolean;
-	handleRetry: VoidFunction;
-};
-
-export const UserRetry = ({handleRetry, isRetrying}: TUserRetryProps) => {
+export const UserRetry = () => {
+	const {handleRetry, isRetrying} = useUserManagementContext();
 	return (
 		<div className="mb-5 flex flex-col items-center justify-center rounded-lg bg-white px-4 py-12 shadow-md dark:bg-gray-800">
 			<div className="mb-6 rounded-full bg-red-100 p-6 dark:bg-red-900/30">

@@ -2,16 +2,16 @@ import {useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {Button} from "../../../../../../components/ui/Button";
 import {InputCustom} from "../../../../../../components/ui/Input";
-import {TUserDto, TUserForm} from "../../../../../../models/memberships/user";
-import {TNullable} from "../../../../../../models/shared/nullable";
+import {TUserForm} from "../../../../../../models/memberships/user";
+import {useUserManagementContext} from "../contexts/UserManagementContext";
 
-type TUserFormProps = {
-	user: TNullable<TUserDto>;
-	onSubmit: (user: TUserForm) => void;
-	isSubmitting: boolean;
-};
+export const UserForm = () => {
+	const {
+		handleSubmit: onSubmit,
+		currentData: user,
+		isSubmitting,
+	} = useUserManagementContext();
 
-export const UserForm = ({user, onSubmit, isSubmitting}: TUserFormProps) => {
 	const {
 		register,
 		handleSubmit,

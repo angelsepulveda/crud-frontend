@@ -2,17 +2,18 @@ import {JSX} from "react";
 import {NoDataMessage} from "../../../../../../components/ui/DataGrid";
 import {TUserDto} from "../../../../../../models/memberships/user";
 import {formatDateDayMothYear} from "../../../../../../utils/date";
+import {useUserManagementContext} from "../contexts/UserManagementContext";
 
 type TUserDataGridMobileProps = {
-	users: TUserDto[];
 	renderActions: (user: TUserDto) => JSX.Element;
 };
 
 export const UserDataGridMobile = ({
-	users,
 	renderActions,
 }: TUserDataGridMobileProps) => {
-	if (users.length === 0) {
+	const {currentUsers} = useUserManagementContext();
+
+	if (currentUsers.length === 0) {
 		return (
 			<div className="space-y-4 md:hidden">
 				<NoDataMessage />
@@ -22,7 +23,7 @@ export const UserDataGridMobile = ({
 
 	return (
 		<div className="space-y-4 md:hidden">
-			{users.map((user: TUserDto) => (
+			{currentUsers.map((user: TUserDto) => (
 				<div
 					key={user.id}
 					className="rounded-lg bg-white p-4 shadow transition duration-150 ease-in-out dark:bg-gray-800"

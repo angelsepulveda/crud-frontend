@@ -8,48 +8,27 @@ import {
 	REGISTER_SECTION,
 	SECTIONS_TITLE,
 } from "../../utils/constants";
-import {useUserManagement} from "./hooks/useUserManagement";
+import {useUserManagementContext} from "./contexts/UserManagementContext";
 import {UserDataGridContainer} from "./partials/UserDataGridContainer";
 import {UserModalContainer} from "./partials/UserModalContainer";
 import {UserRetry} from "./partials/UserRetry";
 
 export const UserManagement = () => {
 	const {
-		handleEdit,
 		handleClearSearch,
-		handleDelete,
 		handleCreate,
-		handleDeleteConfirmation,
 		handleSearch,
-		handleSort,
-		handleSubmit,
-		isDeleting,
-		isConfirmModalOpen,
-		isModalOpen,
 		isLoading,
 		isError,
-		isSubmitting,
 		alert,
 		appliedSearchTerm,
 		searchTerm,
 		setAlert,
-		setIsConfirmModalOpen,
-		currentData,
-		currentPage,
-		currentUsers,
-		totalPages,
 		setSearchTerm,
-		goToPage,
-		sortOrder,
-		sortField,
-		setIsModalOpen,
-		columns,
-		isRetrying,
-		handleRetry,
-	} = useUserManagement();
+	} = useUserManagementContext();
 
 	if (isError) {
-		return <UserRetry isRetrying={isRetrying} handleRetry={handleRetry} />;
+		return <UserRetry />;
 	}
 
 	return (
@@ -80,30 +59,9 @@ export const UserManagement = () => {
 			{isLoading ? (
 				<LoadingState message={LOADING_SECTIONS_MESSAGE} />
 			) : (
-				<UserDataGridContainer
-					goToPage={goToPage}
-					handleSort={handleSort}
-					currentUsers={currentUsers}
-					handleDeleteConfirmation={handleDeleteConfirmation}
-					handleEdit={handleEdit}
-					sortField={sortField}
-					sortOrder={sortOrder}
-					currentPage={currentPage}
-					columns={columns}
-					totalPages={totalPages}
-				/>
+				<UserDataGridContainer />
 			)}
-			<UserModalContainer
-				setIsModalOpen={setIsModalOpen}
-				setIsConfirmModalOpen={setIsConfirmModalOpen}
-				isDeleting={isDeleting}
-				handleDelete={handleDelete}
-				handleSubmit={handleSubmit}
-				currentData={currentData}
-				isSubmitting={isSubmitting}
-				isConfirmModalOpen={isConfirmModalOpen}
-				isModalOpen={isModalOpen}
-			/>
+			<UserModalContainer />
 		</div>
 	);
 };
