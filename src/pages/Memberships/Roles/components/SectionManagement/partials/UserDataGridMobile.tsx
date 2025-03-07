@@ -1,6 +1,7 @@
 import {JSX} from "react";
 import {NoDataMessage} from "../../../../../../components/ui/DataGrid";
 import {TUserDto} from "../../../../../../models/memberships/user";
+import {formatDateDayMothYear} from "../../../../../../utils/date";
 
 type TUserDataGridMobileProps = {
 	users: TUserDto[];
@@ -29,6 +30,11 @@ export const UserDataGridMobile = ({
 					<h3 className="mb-2 text-lg font-semibold text-gray-800 dark:text-white">
 						{user.name}
 					</h3>
+					<p className="mb-1 text-gray-600 dark:text-gray-300">{user.rut}</p>
+					<p className="mb-1 text-gray-600 dark:text-gray-300">{user.email}</p>
+					<p className="mb-1 text-gray-600 dark:text-gray-300">
+						{formatDateDayMothYear(user.birthDate)}
+					</p>
 					<div className="flex justify-end">{renderActions(user)}</div>
 				</div>
 			))}

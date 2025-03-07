@@ -4,7 +4,6 @@ import {LoadingState} from "../../../../../components/ui/DataGrid";
 import {SearchGrid} from "../../../../../components/ui/SearchGrid";
 import {SideAlert} from "../../../../../components/ui/SideAlert";
 import {
-	ERROR_LOADING_SECTIONS,
 	LOADING_SECTIONS_MESSAGE,
 	REGISTER_SECTION,
 	SECTIONS_TITLE,
@@ -12,6 +11,7 @@ import {
 import {useUserManagement} from "./hooks/useUserManagement";
 import {UserDataGridContainer} from "./partials/UserDataGridContainer";
 import {UserModalContainer} from "./partials/UserModalContainer";
+import {UserRetry} from "./partials/UserRetry";
 
 export const UserManagement = () => {
 	const {
@@ -44,14 +44,12 @@ export const UserManagement = () => {
 		sortField,
 		setIsModalOpen,
 		columns,
+		isRetrying,
+		handleRetry,
 	} = useUserManagement();
 
 	if (isError) {
-		return (
-			<div className="py-8 text-center text-red-500">
-				{ERROR_LOADING_SECTIONS}
-			</div>
-		);
+		return <UserRetry isRetrying={isRetrying} handleRetry={handleRetry} />;
 	}
 
 	return (

@@ -16,8 +16,15 @@ import {
 } from "../../../utils/constants";
 
 export function useUserManagement() {
-	const {users, isLoading, isError, createUser, updateUser, deleteUser} =
-		useUsers();
+	const {
+		users,
+		isLoading,
+		isError,
+		createUser,
+		updateUser,
+		deleteUser,
+		mutate,
+	} = useUsers();
 	const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 	const [isConfirmModalOpen, setIsConfirmModalOpen] = useState<boolean>(false);
 	const [sectionToDelete, setSectionToDelete] = useState<string | null>(null);
@@ -30,6 +37,7 @@ export function useUserManagement() {
 	const [appliedSearchTerm, setAppliedSearchTerm] = useState<string>("");
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const [isDeleting, setIsDeleting] = useState<boolean>(false);
+	const [isRetrying, setIsRetrying] = useState<boolean>(false);
 
 	const columns: TColumn<TUserDto>[] = [
 		{key: "name", header: "Nombre"},
@@ -77,6 +85,15 @@ export function useUserManagement() {
 	const handleDeleteConfirmation = (id: string) => {
 		setSectionToDelete(id);
 		setIsConfirmModalOpen(true);
+	};
+
+	const handleRetry = async () => {
+		setIsRetrying(true);
+		try {
+			await mutate();
+		} finally {
+			setIsRetrying(false);
+		}
 	};
 
 	const handleDelete = (): void => {
@@ -203,5 +220,7 @@ export function useUserManagement() {
 		goToPage,
 		setIsModalOpen,
 		columns,
+		isRetrying,
+		handleRetry,
 	};
 }
