@@ -124,14 +124,19 @@ export function useUserManagement() {
 			id: currentData?.id,
 			birthDate: new Date(data.birthDate + "T00:00:00"),
 		})
-			.then(() => {
-				setAlert({message: successMessage, type: "success"});
-				setIsSubmitting(false);
-				setIsModalOpen(false);
-				if (!currentData) {
-					setCurrentPage(
-						Math.ceil((filteredAndSortedRoles.length + 1) / ITEMS_PER_PAGE),
-					);
+			.then((result) => {
+				if (typeof result !== "string") {
+					setAlert({message: successMessage, type: "success"});
+					setIsSubmitting(false);
+					setIsModalOpen(false);
+					if (!currentData) {
+						setCurrentPage(
+							Math.ceil((filteredAndSortedRoles.length + 1) / ITEMS_PER_PAGE),
+						);
+					}
+				} else {
+					setAlert({message: result, type: "error"});
+					setIsSubmitting(false);
 				}
 			})
 			.catch(() => {
