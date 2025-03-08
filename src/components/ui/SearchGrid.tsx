@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction} from "react";
+import {Dispatch, SetStateAction, KeyboardEvent} from "react";
 import {Search} from "lucide-react";
 import {Button} from "./Button";
 
@@ -17,6 +17,12 @@ export const SearchGrid = ({
 	handleSearch,
 	setSearchTerm,
 }: TSearchGridProps) => {
+	const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			e.preventDefault();
+			handleSearch();
+		}
+	};
 	return (
 		<div className="mb-4 flex items-center">
 			<div className="relative mr-2 flex-grow">
@@ -25,6 +31,7 @@ export const SearchGrid = ({
 					placeholder="Buscar.."
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
+					onKeyDown={handleKeyDown}
 					className="w-full items-end rounded-lg border bg-white py-2 pl-10 pr-4 text-gray-700 focus:border-blue-500 focus:outline-none dark:bg-gray-800 dark:text-gray-300"
 				/>
 				<div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
