@@ -290,5 +290,7 @@ export function useUserManagement() {
 		columns,
 		isRetrying,
 		handleRetry,
+		setSortOrder,
+		setSortField,
 	};
 }

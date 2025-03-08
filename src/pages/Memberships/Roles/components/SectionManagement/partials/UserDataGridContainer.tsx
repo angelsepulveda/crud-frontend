@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {Edit, Trash2} from "lucide-react";
 import {Button} from "../../../../../../components/ui/Button";
 import {DataGrid} from "../../../../../../components/ui/DataGrid";
@@ -5,6 +6,7 @@ import {PaginationButtons} from "../../../../../../components/ui/PaginationButto
 import {TUserDto} from "../../../../../../models/memberships/user";
 import {useUserManagementContext} from "../contexts/UserManagementContext";
 import {UserDataGridMobile} from "./UserDataGridMobile";
+import {UserMobileSortControls} from "./UserMobileSortControls";
 
 export const UserDataGridContainer = () => {
 	const {
@@ -40,6 +42,7 @@ export const UserDataGridContainer = () => {
 			</Button>
 		</>
 	);
+
 	return (
 		<>
 			<div className="hidden md:block">
@@ -51,6 +54,9 @@ export const UserDataGridContainer = () => {
 					onSort={handleSort}
 					actions={renderActions}
 				/>
+			</div>
+			<div className="md:hidden">
+				<UserMobileSortControls />
 			</div>
 			<UserDataGridMobile renderActions={renderActions} />
 			<PaginationButtons

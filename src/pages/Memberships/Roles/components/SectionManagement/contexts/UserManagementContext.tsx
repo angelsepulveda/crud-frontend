@@ -35,6 +35,8 @@ type UserManagementContextType = {
 	sortOrder: TSortOrder;
 	setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 	totalPages: number;
+	setSortField: React.Dispatch<React.SetStateAction<TSortFieldUser>>;
+	setSortOrder: React.Dispatch<React.SetStateAction<TSortOrder>>;
 	goToPage: (page: number) => void;
 	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	columns: TColumn<TUserDto>[];
@@ -86,6 +88,8 @@ export const UserManagementProvider = ({
 		columns,
 		isRetrying,
 		handleRetry,
+		setSortField,
+		setSortOrder,
 	} = useUserManagement();
 
 	const value = {
@@ -121,6 +125,8 @@ export const UserManagementProvider = ({
 		columns,
 		isRetrying,
 		handleRetry,
+		setSortField,
+		setSortOrder,
 	};
 
 	return (
