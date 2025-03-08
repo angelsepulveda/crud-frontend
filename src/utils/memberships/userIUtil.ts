@@ -1,6 +1,9 @@
-import { errorTitlesUser } from "../../exceptions/memberships/users/userException";
+import {errorTitlesUser} from "../../exceptions/memberships/users/userException";
 
-export const mapperErrorUser = async (response: Response, defaultMsg: string) => {
+export const mapperErrorUser = async (
+	response: Response,
+	defaultMsg: string,
+) => {
 	const dataError = await response.json();
 
 	if (errorTitlesUser.includes(dataError?.title)) {
@@ -8,4 +11,4 @@ export const mapperErrorUser = async (response: Response, defaultMsg: string) =>
 	}
 
 	throw new Error(defaultMsg);
-}
+};

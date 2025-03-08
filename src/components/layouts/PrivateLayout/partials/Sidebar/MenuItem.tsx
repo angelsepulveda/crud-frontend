@@ -1,11 +1,10 @@
 import {useRef, useState} from "react";
-import {ChevronDown} from "lucide-react";
+import {ChevronDown, LucideIcon} from "lucide-react";
 import {Link, useLocation} from "react-router";
 import {TSubItem} from "./menuItem.d";
 
 type TMenuItemProps = {
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	icon: any;
+	icon: LucideIcon;
 	title: string;
 	href?: string;
 	subItems?: TSubItem[];

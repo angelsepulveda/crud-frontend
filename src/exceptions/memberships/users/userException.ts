@@ -1,5 +1,5 @@
 export const errorTitlesUser = [
-	'UserRutAlreadyEnabledException',
-	'UserRutAlreadyExistException',
-	'UserNotFoundException'
+	"UserRutAlreadyEnabledException",
+	"UserRutAlreadyExistException",
+	"UserNotFoundException",
 ];

@@ -1,12 +1,12 @@
 import useSWR from "swr";
-import { TRegisterUserPayload, TUserDto } from "../../models/memberships/user";
-import { userService } from "../../services/memberships/userService";
+import {TRegisterUserPayload, TUserDto} from "../../models/memberships/user";
+import {userService} from "../../services/memberships/userService";
 
 const fetcher = async () => {
 	return await userService.getAll();
 };
 
-export function useUsers () {
+export function useUsers() {
 	const {
 		data: users,
 		error,
@@ -21,7 +21,7 @@ export function useUsers () {
 				mutate([...(users || []), response as TUserDto], false);
 				return response;
 			}
-			return response
+			return response;
 		} catch (error) {
 			console.error("Error creating user  :", error);
 			throw error;

@@ -1,7 +1,7 @@
-import {TNullable} from "../shared/nullable";
+import {TNullable} from "../../types/nullable";
 
 export type TUserDto = {
-	id?: string;
+	id: TNullable<string>;
 	name: string;
 	rut: string;
 	email: TNullable<string>;
@@ -11,7 +11,7 @@ export type TUserDto = {
 export type TRegisterUserPayload = Omit<TUserDto, "id">;
 
 export type TUserForm = {
-	id?: string;
+	id: TNullable<string>;
 	name: string;
 	rut: string;
 	email: TNullable<string>;

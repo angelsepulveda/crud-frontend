@@ -4,7 +4,7 @@ import {UserManagementProvider} from "./components/SectionManagement/contexts/Us
 export const UsersPage = () => {
 	return (
 		<UserManagementProvider>
-			<UserManagement />;
+			<UserManagement />
 		</UserManagementProvider>
 	);
 };
