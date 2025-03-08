@@ -1,59 +1,11 @@
-import {useEffect} from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
 import {Button} from "../../../../../../components/ui/Button";
 import {InputCustom} from "../../../../../../components/ui/Input";
-import {TUserForm} from "../../../../../../models/memberships/user";
-import {useUserManagementContext} from "../contexts/UserManagementContext";
+import {validateRut} from "../../../../../../utils/rut";
+import {useUserForm} from "../hooks/useUserForm";
 
 export const UserForm = () => {
-	const {
-		handleSubmit: onSubmit,
-		currentData: user,
-		isSubmitting,
-	} = useUserManagementContext();
-
-	const {
-		register,
-		handleSubmit,
-		formState: {errors},
-		reset,
-	} = useForm<TUserForm>({
-		defaultValues: user
-			? {
-					name: user.name,
-					email: user.email,
-					birthDate: user.birthDate
-						? new Date(user.birthDate).toISOString().split("T")[0]
-						: "",
-					rut: user.rut,
-				}
-			: {
-					name: "",
-					email: "",
-					rut: "",
-					birthDate: "",
-				},
-	});
-
-	useEffect(() => {
-		if (user) {
-			reset({
-				name: user.name,
-				email: user.email,
-				birthDate: user.birthDate
-					? new Date(user.birthDate).toISOString().split("T")[0]
-					: "",
-				rut: user.rut,
-			});
-		} else {
-			reset();
-		}
-	}, [user, reset]);
-
-	const onSubmitForm: SubmitHandler<TUserForm> = (data) => {
-		onSubmit(data);
-	};
-
+	const {onSubmitForm, register, handleSubmit, isSubmitting, errors, user} =
+		useUserForm();
 	return (
 		<form onSubmit={handleSubmit(onSubmitForm)} className="space-y-6">
 			<InputCustom
@@ -77,6 +29,7 @@ export const UserForm = () => {
 						value: 50,
 						message: "no puede superar los 50 caracteres",
 					},
+					validate: (value) => validateRut(value) || "Rut invalido",
 				})}
 				error={errors.rut}
 			/>

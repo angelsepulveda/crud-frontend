@@ -3,9 +3,10 @@ import {TColumn} from "../../../../../../components/ui/DataGrid";
 import {useUsers} from "../../../../../../hooks/memberships/useUsers";
 import {TUserDto, TUserForm} from "../../../../../../models/memberships/user";
 import {TAlertState} from "../../../../../../types/alert";
-import {TSortField, TSortOrder} from "../../../../../../types/sortDataGrid";
+import {TSortOrder} from "../../../../../../types/sortDataGrid";
 import {ITEMS_PER_PAGE} from "../../../../../../utils/constants";
 import {formatDateDayMothYear} from "../../../../../../utils/date";
+import {TSortFieldUser} from "../../../types/sortFieldUser";
 import {
 	ERROR_CREATE_MESSAGE,
 	ERROR_DELETE_MESSAGE,
@@ -31,7 +32,7 @@ export function useUserManagement() {
 	const [currentData, setCurrentData] = useState<TUserDto | null>(null);
 	const [alert, setAlert] = useState<TAlertState | null>(null);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [sortField, setSortField] = useState<TSortField>("name");
+	const [sortField, setSortField] = useState<TSortFieldUser>("name");
 	const [sortOrder, setSortOrder] = useState<TSortOrder>("asc");
 	const [searchTerm, setSearchTerm] = useState<string>("");
 	const [appliedSearchTerm, setAppliedSearchTerm] = useState<string>("");
@@ -52,13 +53,80 @@ export function useUserManagement() {
 
 	const filteredAndSortedRoles = useMemo(() => {
 		return (users || [])
-			.filter(({name}) =>
-				name.toLowerCase().includes(appliedSearchTerm.toLowerCase()),
-			)
+			.filter((user) => {
+				const searchLower = appliedSearchTerm.toLowerCase();
+				if (
+					user.name.toLowerCase().includes(searchLower) ||
+					user.email?.toLowerCase().includes(searchLower) ||
+					(user.rut && user.rut.toLowerCase().includes(searchLower))
+				) {
+					return true;
+				}
+
+				// Buscar por fecha de nacimiento
+				if (user.birthDate) {
+					const date = new Date(user.birthDate);
+
+					// Formato DD/MM/YYYY
+					const formattedDate = formatDateDayMothYear(user.birthDate);
+					if (formattedDate.includes(appliedSearchTerm)) {
+						return true;
+					}
+
+					// Formato YYYY-MM-DD
+					const isoDate = date.toISOString().split("T")[0];
+					if (isoDate.includes(appliedSearchTerm)) {
+						return true;
+					}
+
+					// Buscar solo por año
+					const year = date.getFullYear().toString();
+					if (year.includes(appliedSearchTerm)) {
+						return true;
+					}
+
+					// Buscar por mes/año (MM/YYYY)
+					const month = (date.getMonth() + 1).toString().padStart(2, "0");
+					const monthYear = `${month}/${date.getFullYear()}`;
+					if (monthYear.includes(appliedSearchTerm)) {
+						return true;
+					}
+				}
+
+				return false;
+			})
 			.sort((a, b) => {
-				if (a[sortField] < b[sortField]) return sortOrder === "asc" ? -1 : 1;
-				if (a[sortField] > b[sortField]) return sortOrder === "asc" ? 1 : -1;
-				return 0;
+				const valA = a[sortField];
+				const valB = b[sortField];
+
+				// Si los valores son booleanos, los convertimos a números (false = 0, true = 1)
+				if (typeof valA === "boolean" && typeof valB === "boolean") {
+					return (
+						(valA === valB ? 0 : valA ? 1 : -1) * (sortOrder === "asc" ? 1 : -1)
+					);
+				}
+
+				// Si los valores son fechas, convertimos a timestamps
+				if (sortField === "birthDate") {
+					if (valA && valB) {
+						const dateA = new Date(valA);
+						const dateB = new Date(valB);
+
+						if (!isNaN(dateA.getTime()) && !isNaN(dateB.getTime())) {
+							return (
+								(dateA.getTime() - dateB.getTime()) *
+								(sortOrder === "asc" ? 1 : -1)
+							);
+						}
+					}
+					return 0;
+				}
+
+				// Convertimos cualquier otro valor a string para comparación
+				const strA = String(valA).toLowerCase();
+				const strB = String(valB).toLowerCase();
+
+				return strA.localeCompare(strB) * (sortOrder === "asc" ? 1 : -1);
 			});
 	}, [users, sortField, sortOrder, appliedSearchTerm]);
 
@@ -163,7 +231,7 @@ export function useUserManagement() {
 	};
 
 	const handleSort = useCallback(
-		(field: TSortField) => {
+		(field: TSortFieldUser) => {
 			if (field === sortField) {
 				setSortOrder(sortOrder === "asc" ? "desc" : "asc");
 			} else {

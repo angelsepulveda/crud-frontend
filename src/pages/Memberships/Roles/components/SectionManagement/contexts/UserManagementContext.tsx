@@ -3,7 +3,8 @@ import {ReactNode} from "react";
 import {TColumn} from "../../../../../../components/ui/DataGrid";
 import {TUserDto, TUserForm} from "../../../../../../models/memberships/user";
 import {TAlertState} from "../../../../../../types/alert";
-import {TSortField, TSortOrder} from "../../../../../../types/sortDataGrid";
+import {TSortOrder} from "../../../../../../types/sortDataGrid";
+import {TSortFieldUser} from "../../../types/sortFieldUser";
 import {useUserManagement} from "../hooks/useUserManagement";
 
 type UserManagementContextType = {
@@ -13,7 +14,7 @@ type UserManagementContextType = {
 	handleDeleteConfirmation: (id: string) => void;
 	handleClearSearch: () => void;
 	handleEdit: (data: TUserDto) => void;
-	handleSort: (field: TSortField) => void;
+	handleSort: (field: TSortFieldUser) => void;
 	handleSubmit: (data: TUserForm) => void;
 	currentUsers: TUserDto[];
 	filteredAndSortedRoles: TUserDto[];
@@ -30,7 +31,7 @@ type UserManagementContextType = {
 	setAlert: React.Dispatch<React.SetStateAction<TAlertState | null>>;
 	currentData: TUserDto | null;
 	currentPage: number;
-	sortField: TSortField;
+	sortField: TSortFieldUser;
 	sortOrder: TSortOrder;
 	setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
 	totalPages: number;
