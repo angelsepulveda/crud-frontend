@@ -1,23 +1,21 @@
-import {TRegisterUserPayload, TUserDto} from "../../models/memberships/user";
-import {mapperErrorUser} from "../../utils/memberships/userIUtil";
+import { TRegisterUserPayload, TUserDto } from "../../models/memberships/user";
+import { fetchWithAuth } from "../../utils/apIToken";
+import { mapperErrorUser } from "../../utils/memberships/userIUtil";
 
 const API_URL = "https://localhost:7148/api";
 
 export const userService = {
-	async getAll(): Promise<TUserDto[]> {
-		const response = await fetch(`${API_URL}/users`);
+	async getAll (): Promise<TUserDto[]> {
+		const response = await fetchWithAuth(`${API_URL}/users`);
 		if (!response.ok) {
 			throw new Error("Failed to fetch users");
 		}
 		return response.json();
 	},
 
-	async create(data: TRegisterUserPayload): Promise<TUserDto | string> {
-		const response = await fetch(`${API_URL}/users`, {
+	async create (data: TRegisterUserPayload): Promise<TUserDto | string> {
+		const response = await fetchWithAuth(`${API_URL}/users`, {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify(data),
 		});
 		if (!response.ok) {
@@ -26,12 +24,9 @@ export const userService = {
 		return response.json();
 	},
 
-	async update(data: TUserDto): Promise<TUserDto> {
-		const response = await fetch(`${API_URL}/users`, {
+	async update (data: TUserDto): Promise<TUserDto> {
+		const response = await fetchWithAuth(`${API_URL}/users`, {
 			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
 			body: JSON.stringify(data),
 		});
 		if (!response.ok) {
@@ -40,8 +35,8 @@ export const userService = {
 		return response.json();
 	},
 
-	async delete(id: string): Promise<void> {
-		const response = await fetch(`${API_URL}/users/${id}`, {
+	async delete (id: string): Promise<void> {
+		const response = await fetchWithAuth(`${API_URL}/users/${id}`, {
 			method: "DELETE",
 		});
 		if (!response.ok) {
@@ -49,13 +44,10 @@ export const userService = {
 		}
 	},
 
-	async downloadUserExcel(): Promise<void> {
+	async downloadUserExcel (): Promise<void> {
 		try {
-			const response = await fetch(`${API_URL}/users/export`, {
+			const response = await fetchWithAuth(`${API_URL}/users/export`, {
 				method: "GET",
-				headers: {
-					"Content-Type": "application/json",
-				},
 			});
 
 			if (!response.ok) {

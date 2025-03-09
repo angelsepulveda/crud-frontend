@@ -1,15 +1,13 @@
 import {createRoot} from "react-dom/client";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import PrivateLayout from "./components/layouts/PrivateLayout/PrivateLayout";
-import {UsersPage} from "./pages/Memberships/Roles/UsersPage";
+import {GoogleOAuthProvider} from "@react-oauth/google";
+import AppRouter from "./router/AppRouter";
 import "./index.css";
 
+const clientId =
+	"1068911687738-5p7gtlmkrnoaddlbodvdegmem47sssi0.apps.googleusercontent.com";
+
 createRoot(document.getElementById("root")!).render(
-	<BrowserRouter>
-		<Routes>
-			<Route path="/" element={<PrivateLayout />}>
-				<Route index element={<UsersPage />} />
-			</Route>
-		</Routes>
-	</BrowserRouter>,
+	<GoogleOAuthProvider clientId={clientId}>
+		<AppRouter />
+	</GoogleOAuthProvider>,
 );
