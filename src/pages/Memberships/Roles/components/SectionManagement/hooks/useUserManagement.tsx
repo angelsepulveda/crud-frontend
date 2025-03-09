@@ -2,6 +2,7 @@ import {useMemo, useState, useCallback} from "react";
 import {TColumn} from "../../../../../../components/ui/DataGrid";
 import {useUsers} from "../../../../../../hooks/memberships/useUsers";
 import {TUserDto, TUserForm} from "../../../../../../models/memberships/user";
+import {userService} from "../../../../../../services/memberships/userService";
 import {TAlertState} from "../../../../../../types/alert";
 import {TSortOrder} from "../../../../../../types/sortDataGrid";
 import {ITEMS_PER_PAGE} from "../../../../../../utils/constants";
@@ -39,6 +40,7 @@ export function useUserManagement() {
 	const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 	const [isDeleting, setIsDeleting] = useState<boolean>(false);
 	const [isRetrying, setIsRetrying] = useState<boolean>(false);
+	const [isDownloading, setIsDownloading] = useState<boolean>(false);
 
 	const columns: TColumn<TUserDto>[] = [
 		{key: "name", header: "Nombre"},
@@ -139,6 +141,18 @@ export function useUserManagement() {
 			startIndex + ITEMS_PER_PAGE,
 		);
 	}, [filteredAndSortedRoles, currentPage]);
+
+	const handleDownloadExcel = async () => {
+		setIsDownloading(true);
+		try {
+			await userService.downloadUserExcel();
+			setAlert({message: "Excel file exported successfully", type: "success"});
+		} catch (error) {
+			setAlert({message: "Failed to export Excel file", type: "error"});
+		} finally {
+			setIsDownloading(false);
+		}
+	};
 
 	const handleCreate = useCallback(() => {
 		setCurrentData(null);
@@ -292,5 +306,7 @@ export function useUserManagement() {
 		handleRetry,
 		setSortOrder,
 		setSortField,
+		isDownloading,
+		handleDownloadExcel,
 	};
 }

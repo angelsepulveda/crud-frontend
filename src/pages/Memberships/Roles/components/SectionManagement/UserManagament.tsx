@@ -1,4 +1,4 @@
-import {Plus} from "lucide-react";
+import {FileSpreadsheet, Plus} from "lucide-react";
 import {Button} from "../../../../../components/ui/Button";
 import {LoadingState} from "../../../../../components/ui/DataGrid";
 import {SearchGrid} from "../../../../../components/ui/SearchGrid";
@@ -25,6 +25,9 @@ export const UserManagement = () => {
 		searchTerm,
 		setAlert,
 		setSearchTerm,
+		isDownloading,
+		handleDownloadExcel,
+		currentUsers,
 	} = useUserManagementContext();
 
 	if (isError) {
@@ -45,9 +48,21 @@ export const UserManagement = () => {
 				<h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
 					{SECTIONS_TITLE}
 				</h2>
-				<Button onClick={handleCreate} icon={<Plus size={18} />}>
-					{REGISTER_SECTION}
-				</Button>
+				<div className="flex space-x-2">
+					<Button
+						onClick={handleDownloadExcel}
+						icon={<FileSpreadsheet size={18} />}
+						variant="secondary"
+						isLoading={isDownloading}
+						disabled={currentUsers.length === 0}
+						className="bg-green-600 text-white hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800"
+					>
+						Exportar Excel
+					</Button>
+					<Button onClick={handleCreate} icon={<Plus size={18} />}>
+						{REGISTER_SECTION}
+					</Button>
+				</div>
 			</div>
 			<SearchGrid
 				handleClearSearch={handleClearSearch}

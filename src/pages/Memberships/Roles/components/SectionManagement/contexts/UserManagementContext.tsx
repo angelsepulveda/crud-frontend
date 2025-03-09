@@ -41,7 +41,9 @@ type UserManagementContextType = {
 	setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 	columns: TColumn<TUserDto>[];
 	isRetrying: boolean;
-	handleRetry: () => void;
+	handleRetry: VoidFunction;
+	isDownloading: boolean;
+	handleDownloadExcel: VoidFunction;
 };
 
 export const UserManagementContext = createContext<
@@ -90,6 +92,8 @@ export const UserManagementProvider = ({
 		handleRetry,
 		setSortField,
 		setSortOrder,
+		isDownloading,
+		handleDownloadExcel,
 	} = useUserManagement();
 
 	const value = {
@@ -127,6 +131,8 @@ export const UserManagementProvider = ({
 		handleRetry,
 		setSortField,
 		setSortOrder,
+		isDownloading,
+		handleDownloadExcel,
 	};
 
 	return (
