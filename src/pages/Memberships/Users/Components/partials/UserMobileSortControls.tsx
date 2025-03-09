@@ -1,6 +1,6 @@
 import {useState} from "react";
 import {ChevronDown, ChevronUp, SortAsc, SortDesc} from "lucide-react";
-import {TSortFieldUser} from "../../../types/sortFieldUser";
+import {TSortFieldUser} from "../../types/sortFieldUser";
 import {useUserManagementContext} from "../contexts/UserManagementContext";
 
 const sortOptions = [

@@ -1,8 +1,8 @@
 import {Edit, Trash2} from "lucide-react";
-import {Button} from "../../../../../../components/ui/Button";
-import {DataGrid} from "../../../../../../components/ui/DataGrid";
-import {PaginationButtons} from "../../../../../../components/ui/PaginationButtons";
-import {TUserDto} from "../../../../../../models/memberships/user";
+import {Button} from "../../../../../components/ui/Button";
+import {DataGrid} from "../../../../../components/ui/DataGrid";
+import {PaginationButtons} from "../../../../../components/ui/PaginationButtons";
+import {TUserDto} from "../../../../../models/memberships/user";
 import {useUserManagementContext} from "../contexts/UserManagementContext";
 import {UserDataGridMobile} from "./UserDataGridMobile";
 import {UserMobileSortControls} from "./UserMobileSortControls";

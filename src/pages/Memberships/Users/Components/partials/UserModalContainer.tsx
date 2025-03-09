@@ -1,6 +1,6 @@
-import {ConfirmationModal} from "../../../../../../components/ui/ConfirmationModal";
-import {Modal} from "../../../../../../components/ui/Modal";
-import {MESSAGE_DELETE_SECTION} from "../../../utils/constants";
+import {ConfirmationModal} from "../../../../../components/ui/ConfirmationModal";
+import {Modal} from "../../../../../components/ui/Modal";
+import {MESSAGE_DELETE_SECTION} from "../../utils/constants";
 import {useUserManagementContext} from "../contexts/UserManagementContext";
 import {UserForm} from "./UserForm";
 

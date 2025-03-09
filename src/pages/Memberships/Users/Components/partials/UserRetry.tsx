@@ -1,5 +1,5 @@
 import {AlertTriangle, RefreshCw} from "lucide-react";
-import {Button} from "../../../../../../components/ui/Button";
+import {Button} from "../../../../../components/ui/Button";
 import {useUserManagementContext} from "../contexts/UserManagementContext";
 
 export const UserRetry = () => {

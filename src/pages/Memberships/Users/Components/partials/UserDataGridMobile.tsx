@@ -1,7 +1,7 @@
 import {JSX} from "react";
-import {NoDataMessage} from "../../../../../../components/ui/DataGrid";
-import {TUserDto} from "../../../../../../models/memberships/user";
-import {formatDateDayMothYear} from "../../../../../../utils/date";
+import {NoDataMessage} from "../../../../../components/ui/DataGrid";
+import {TUserDto} from "../../../../../models/memberships/user";
+import {formatDateDayMothYear} from "../../../../../utils/date";
 import {useUserManagementContext} from "../contexts/UserManagementContext";
 
 type TUserDataGridMobileProps = {

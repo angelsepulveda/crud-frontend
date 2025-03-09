@@ -8,10 +8,10 @@ import {
 	REGISTER_SECTION,
 	SECTIONS_TITLE,
 } from "../../utils/constants";
-import {useUserManagementContext} from "./contexts/UserManagementContext";
-import {UserDataGridContainer} from "./partials/UserDataGridContainer";
-import {UserModalContainer} from "./partials/UserModalContainer";
-import {UserRetry} from "./partials/UserRetry";
+import {useUserManagementContext} from "../contexts/UserManagementContext";
+import {UserDataGridContainer} from "../partials/UserDataGridContainer";
+import {UserModalContainer} from "../partials/UserModalContainer";
+import {UserRetry} from "../partials/UserRetry";
 
 export const UserManagement = () => {
 	const {
@@ -44,11 +44,11 @@ export const UserManagement = () => {
 				/>
 			)}
 
-			<div className="mb-6 flex items-center justify-between">
+			<div className="mb-6 flex flex-col space-y-4 sm:space-y-0 md:flex-row md:items-center md:justify-between">
 				<h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
 					{SECTIONS_TITLE}
 				</h2>
-				<div className="flex space-x-2">
+				<div className="flex flex-col space-y-2 sm:space-y-0 md:flex-row md:space-x-2">
 					<Button
 						onClick={handleDownloadExcel}
 						icon={<FileSpreadsheet size={18} />}

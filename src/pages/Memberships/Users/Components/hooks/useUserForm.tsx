@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {TUserForm} from "../../../../../../models/memberships/user";
-import {formatRut} from "../../../../../../utils/rut";
+import {TUserForm} from "../../../../../models/memberships/user";
+import {formatRut} from "../../../../../utils/rut";
 import {useUserManagementContext} from "../contexts/UserManagementContext";
 
 export const useUserForm = () => {

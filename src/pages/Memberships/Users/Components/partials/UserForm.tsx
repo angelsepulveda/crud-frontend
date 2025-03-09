@@ -1,6 +1,6 @@
-import {Button} from "../../../../../../components/ui/Button";
-import {InputCustom} from "../../../../../../components/ui/Input";
-import {validateRut} from "../../../../../../utils/rut";
+import {Button} from "../../../../../components/ui/Button";
+import {InputCustom} from "../../../../../components/ui/Input";
+import {validateRut} from "../../../../../utils/rut";
 import {useUserForm} from "../hooks/useUserForm";
 
 export const UserForm = () => {

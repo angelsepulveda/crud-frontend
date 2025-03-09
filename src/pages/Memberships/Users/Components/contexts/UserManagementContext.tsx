@@ -1,10 +1,10 @@
 import React, {createContext, useContext} from "react";
 import {ReactNode} from "react";
-import {TColumn} from "../../../../../../components/ui/DataGrid";
-import {TUserDto, TUserForm} from "../../../../../../models/memberships/user";
-import {TAlertState} from "../../../../../../types/alert";
-import {TSortOrder} from "../../../../../../types/sortDataGrid";
-import {TSortFieldUser} from "../../../types/sortFieldUser";
+import {TColumn} from "../../../../../components/ui/DataGrid";
+import {TUserDto, TUserForm} from "../../../../../models/memberships/user";
+import {TAlertState} from "../../../../../types/alert";
+import {TSortOrder} from "../../../../../types/sortDataGrid";
+import {TSortFieldUser} from "../../types/sortFieldUser";
 import {useUserManagement} from "../hooks/useUserManagement";
 
 type UserManagementContextType = {

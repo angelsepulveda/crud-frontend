@@ -1,13 +1,13 @@
 import {useMemo, useState, useCallback} from "react";
-import {TColumn} from "../../../../../../components/ui/DataGrid";
-import {useUsers} from "../../../../../../hooks/memberships/useUsers";
-import {TUserDto, TUserForm} from "../../../../../../models/memberships/user";
-import {userService} from "../../../../../../services/memberships/userService";
-import {TAlertState} from "../../../../../../types/alert";
-import {TSortOrder} from "../../../../../../types/sortDataGrid";
-import {ITEMS_PER_PAGE} from "../../../../../../utils/constants";
-import {formatDateDayMothYear} from "../../../../../../utils/date";
-import {TSortFieldUser} from "../../../types/sortFieldUser";
+import {TColumn} from "../../../../../components/ui/DataGrid";
+import {useUsers} from "../../../../../hooks/memberships/useUsers";
+import {TUserDto, TUserForm} from "../../../../../models/memberships/user";
+import {userService} from "../../../../../services/memberships/userService";
+import {TAlertState} from "../../../../../types/alert";
+import {TSortOrder} from "../../../../../types/sortDataGrid";
+import {ITEMS_PER_PAGE} from "../../../../../utils/constants";
+import {formatDateDayMothYear} from "../../../../../utils/date";
+import {TSortFieldUser} from "../../types/sortFieldUser";
 import {
 	ERROR_CREATE_MESSAGE,
 	ERROR_DELETE_MESSAGE,
@@ -15,7 +15,7 @@ import {
 	SUCCESS_CREATE_MESSAGE,
 	SUCCESS_DELETE_MESSAGE,
 	SUCCESS_UPDATE_MESSAGE,
-} from "../../../utils/constants";
+} from "../../utils/constants";
 
 export function useUserManagement() {
 	const {
@@ -146,9 +146,7 @@ export function useUserManagement() {
 		setIsDownloading(true);
 		try {
 			await userService.downloadUserExcel();
-			setAlert({message: "Excel file exported successfully", type: "success"});
 		} catch (error) {
-			setAlert({message: "Failed to export Excel file", type: "error"});
 		} finally {
 			setIsDownloading(false);
 		}

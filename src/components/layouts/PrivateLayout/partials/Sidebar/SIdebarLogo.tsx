@@ -7,7 +7,7 @@ export default function SidebarLogo() {
 		<span
 			className={`text-2xl font-bold ${theme === "dark" ? "text-white" : "text-black"} `}
 		>
-			{theme === "dark" ? "Logo Blanco" : "Logo"}
+			Crud Pragma
 		</span>
 	);
 }

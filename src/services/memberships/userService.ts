@@ -1,11 +1,11 @@
-import { TRegisterUserPayload, TUserDto } from "../../models/memberships/user";
-import { fetchWithAuth } from "../../utils/apIToken";
-import { mapperErrorUser } from "../../utils/memberships/userIUtil";
+import {TRegisterUserPayload, TUserDto} from "../../models/memberships/user";
+import {fetchWithAuth} from "../../utils/apIToken";
+import {mapperErrorUser} from "../../utils/memberships/userIUtil";
 
 const API_URL = "https://localhost:7148/api";
 
 export const userService = {
-	async getAll (): Promise<TUserDto[]> {
+	async getAll(): Promise<TUserDto[]> {
 		const response = await fetchWithAuth(`${API_URL}/users`);
 		if (!response.ok) {
 			throw new Error("Failed to fetch users");
@@ -13,7 +13,7 @@ export const userService = {
 		return response.json();
 	},
 
-	async create (data: TRegisterUserPayload): Promise<TUserDto | string> {
+	async create(data: TRegisterUserPayload): Promise<TUserDto | string> {
 		const response = await fetchWithAuth(`${API_URL}/users`, {
 			method: "POST",
 			body: JSON.stringify(data),
@@ -24,7 +24,7 @@ export const userService = {
 		return response.json();
 	},
 
-	async update (data: TUserDto): Promise<TUserDto> {
+	async update(data: TUserDto): Promise<TUserDto> {
 		const response = await fetchWithAuth(`${API_URL}/users`, {
 			method: "PUT",
 			body: JSON.stringify(data),
@@ -35,7 +35,7 @@ export const userService = {
 		return response.json();
 	},
 
-	async delete (id: string): Promise<void> {
+	async delete(id: string): Promise<void> {
 		const response = await fetchWithAuth(`${API_URL}/users/${id}`, {
 			method: "DELETE",
 		});
@@ -44,7 +44,7 @@ export const userService = {
 		}
 	},
 
-	async downloadUserExcel (): Promise<void> {
+	async downloadUserExcel(): Promise<void> {
 		try {
 			const response = await fetchWithAuth(`${API_URL}/users/export`, {
 				method: "GET",

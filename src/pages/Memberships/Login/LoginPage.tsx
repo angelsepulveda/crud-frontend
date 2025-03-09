@@ -1,28 +1,18 @@
 import {useNavigate} from "react-router";
-import {GoogleLogin} from "@react-oauth/google";
+import {GoogleLogin, CredentialResponse} from "@react-oauth/google";
+import {authService} from "../../../services/memberships/authService";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
-	const handleLoginSuccess = async (credentialResponse: any) => {
+
+	const handleLoginSuccess = async (credentialResponse: CredentialResponse) => {
 		try {
 			const {credential} = credentialResponse;
-
-			const response = await fetch("https://localhost:7148/auth/login-google", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({token: credential}),
-			});
-
-			if (!response.ok) {
-				throw new Error("Error en la autenticación");
+			if (credential) {
+				const token = await authService.loginWithGoogle(credential);
+				localStorage.setItem("token", token);
+				navigate("/");
 			}
-
-			const data = await response.json();
-
-			localStorage.setItem("token", data.token);
-			navigate("/");
 		} catch (error) {
 			console.error("Error al autenticar:", error);
 		}
