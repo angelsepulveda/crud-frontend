@@ -1,54 +1,33 @@
-# React + TypeScript + Vite
+# Crud Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es un frontend para la gestión de membresías, desarrollado con React, TypeScript y Vite. Incluye autenticación con Google y funcionalidades para la gestión de usuarios.
 
-Currently, two official plugins are available:
+## Tecnologías Utilizadas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [React](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [React Router](https://reactrouter.com/)
+- [@react-oauth/google](https://www.npmjs.com/package/@react-oauth/google)
 
-## Expanding the ESLint configuration
+### Variables de Entorno
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Asegúrate de crear un archivo `.env.development` en la raíz del proyecto con las siguientes variables de entorno:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+```env
+REACT_APP_API_URL=https://localhost:7148/api
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Ejecucion del proyecto
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+si por alguna razon no se pueden arrancar con el puerto 5173 y tienen que usar otro puerto contactese con angel sepulveda
+angelsepulvedach@gmail.com para asi en google cloud autorizar el puerto que vayan a utilizar para la autentificacion
+funcione correctamente.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+
+```env
+npm run dev
 ```
+
+se deberia leventa en esta direccion http://localhost:5173/
