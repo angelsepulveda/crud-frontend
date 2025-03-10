@@ -1,11 +1,15 @@
+import {useState} from "react";
 import {useNavigate} from "react-router";
 import {GoogleLogin, CredentialResponse} from "@react-oauth/google";
 import {authService} from "../../../services/memberships/authService";
+import {GoogleSpinner} from "./components/GoogleSpinner";
 
 const LoginPage = () => {
 	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const handleLoginSuccess = async (credentialResponse: CredentialResponse) => {
+		setIsLoading(true);
 		try {
 			const {credential} = credentialResponse;
 			if (credential) {
@@ -15,6 +19,9 @@ const LoginPage = () => {
 			}
 		} catch (error) {
 			console.error("Error al autenticar:", error);
+			setIsLoading(false);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -30,15 +37,29 @@ const LoginPage = () => {
 					</p>
 				</div>
 				<div className="flex justify-center">
-					<GoogleLogin
-						onSuccess={handleLoginSuccess}
-						useOneTap
-						shape="rectangular"
-						text="signin_with"
-						size="large"
-						logo_alignment="left"
-						theme="outline"
-					/>
+					{isLoading ? (
+						<div className="flex flex-col items-center justify-center rounded-md border border-gray-300 p-6 dark:border-gray-600">
+							<div className="flex items-center justify-center space-x-3">
+								<GoogleSpinner size={28} />
+								<span className="font-medium text-gray-700 dark:text-gray-200">
+									Iniciando sesión con Google...
+								</span>
+							</div>
+							<p className="mt-4 text-sm text-gray-500 dark:text-gray-400">
+								Serás redirigido automáticamente
+							</p>
+						</div>
+					) : (
+						<GoogleLogin
+							onSuccess={handleLoginSuccess}
+							useOneTap
+							shape="rectangular"
+							text="signin_with"
+							size="large"
+							logo_alignment="left"
+							theme="outline"
+						/>
+					)}
 				</div>
 			</div>
 		</div>

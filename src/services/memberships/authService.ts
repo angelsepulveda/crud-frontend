@@ -1,9 +1,9 @@
-import {fetchWithAuth} from "../../utils/apIToken";
+import { fetchWithAuth } from "../../utils/apIToken";
 
-const API_URL = "https://localhost:7148/api";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const authService = {
-	async logout(): Promise<void> {
+	async logout (): Promise<void> {
 		const response = await fetchWithAuth(`${API_URL}/auth/logout`, {
 			method: "POST",
 		});
@@ -16,13 +16,13 @@ export const authService = {
 		localStorage.removeItem("token");
 	},
 
-	async loginWithGoogle(token: string): Promise<string> {
+	async loginWithGoogle (token: string): Promise<string> {
 		const response = await fetch(`${API_URL}/auth/login-google`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({token}),
+			body: JSON.stringify({ token }),
 		});
 
 		if (!response.ok) {
